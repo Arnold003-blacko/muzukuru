@@ -1,0 +1,23 @@
+# Core ML
+torch>=2.1.0
+numpy>=1.24.0
+scipy>=1.11.0
+scikit-learn>=1.3.0
+pandas>=2.0.0
+
+# Pose / video (headless OpenCV for Streamlit Cloud / servers)
+mediapipe>=0.10.9
+opencv-python-headless>=4.8.0
+Pillow>=10.0.0
+
+# Demo UI
+streamlit>=1.28.0
+
+# Training utilities
+PyYAML>=6.0
+tqdm>=4.66.0
+matplotlib>=3.8.0
+seaborn>=0.13.0
+
+# Optional: faster video I/O on some platforms
+# av>=10.0.0

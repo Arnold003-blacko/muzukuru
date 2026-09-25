@@ -1,0 +1,76 @@
+# Muzukuru temporal fall-classification training config
+
+seed: 42
+num_classes: 5
+class_names:
+  - normal_activity
+  - fall
+  - collapse
+  - prolonged_immobility
+  - abnormal_repetitive_movement
+
+pose:
+  backend: mediapipe  # 33 landmarks
+  model_complexity: 1
+  min_detection_confidence: 0.5
+  min_tracking_confidence: 0.5
+  target_fps: 30
+
+windows:
+  length: 60          # frames (~2s at 30fps); literature range 60–90
+  stride_train: 30    # 50% overlap
+  stride_eval: 60     # non-overlapping at eval
+
+features:
+  include_visibility: false
+  velocity_joints: [hip_center, head_center]
+  include_acceleration: true
+  include_torso_angle: true
+  include_bbox_aspect: true
+  include_com_height: true
+
+augmentation:
+  horizontal_flip_prob: 0.5
+  rotation_deg: 10
+  temporal_jitter_prob: 0.3
+  temporal_jitter_max_frames: 3
+  gaussian_noise_std: 0.01
+  speed_variation_prob: 0.3
+  speed_range: [0.85, 1.15]
+
+model:
+  cnn_channels: 64
+  cnn_kernel: 3
+  gru_hidden: 128
+  gru_layers: 2
+  fc_hidden: 64
+  dropout: 0.3
+  bidirectional: true
+  use_attention: true
+
+train:
+  batch_size: 32
+  epochs: 50
+  lr: 0.001
+  weight_decay: 0.0001
+  optimizer: adamw
+  scheduler: cosine          # cosine | plateau | none
+  loss: weighted_ce          # weighted_ce | focal
+  focal_gamma: 2.0
+  early_stopping_patience: 10
+  num_workers: 0
+  freeze_backbone_epochs: 0  # >0 for transfer fine-tune (freeze CNN+early GRU)
+
+split:
+  train_ratio: 0.70
+  val_ratio: 0.15
+  test_ratio: 0.15
+  group_by: subject          # subject | session
+
+paths:
+  raw_videos: data/raw
+  poses: data/poses
+  windows: data/windows
+  checkpoints: checkpoints
+  reports: reports
+  metadata: data/metadata.csv

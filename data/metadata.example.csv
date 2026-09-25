@@ -1,0 +1,6 @@
+video_path,clip_id,subject_id,session_id,label
+data/raw/subj01/fall_01.mp4,subj01_fall_01,subj01,subj01_sess1,fall
+data/raw/subj01/normal_01.mp4,subj01_normal_01,subj01,subj01_sess1,normal_activity
+data/raw/subj02/collapse_01.mp4,subj02_collapse_01,subj02,subj02_sess1,collapse
+data/raw/subj02/lying_vol_01.mp4,subj02_immob_01,subj02,subj02_sess1,prolonged_immobility
+data/raw/subj03/repetitive_01.mp4,subj03_rep_01,subj03,subj03_sess1,abnormal_repetitive_movement
